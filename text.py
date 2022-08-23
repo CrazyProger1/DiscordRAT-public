@@ -10,6 +10,11 @@ $start app - start application (app - full path)
 $shutdown [time] - shutdown (time - time before shutdown in secs)
 $chmd mode - change working mode (modes: 0 - basic, 1 - filesystem)
 $exit - close session
+
+Examples:
+$help 
+$exec cmd = 'start explorer'
+$chmd mode = 1
 '''
 
 FILESYSTEM_HELP = '''
@@ -18,11 +23,17 @@ DiscordRAT V0.1 by crazyproger1
 Available Commands:
 $rmde - reset mode to 0 (basic)
 $dir / $ls [path] - display list of the folder content (path - path to folder)
+
+Examples:
+$rmde
+$dir D:/
+$ls C:/
 '''
 
 EXECUTED = 'Command executed'
 APPLICATION_STARTED = 'Application started'
 MODE_CHANGED = 'Mode changed'
+MODE_AUTO_CHANGE = 'Mode automatically changed to {value} ({name})'
 
 ERR_COMMAND = 'COMMAND ERROR: '
 ERR_ARG = 'ARGUMENT ERROR: '

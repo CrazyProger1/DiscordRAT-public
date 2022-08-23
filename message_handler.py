@@ -5,6 +5,7 @@ from config import Config
 from command_executor import Executor
 from state import WorkingModes
 from commands import *
+from text import *
 
 
 class MessageHandler:
@@ -54,7 +55,7 @@ class MessageHandler:
                 executor.state.working_mode = WorkingModes(mode_key)
                 working_mode = executor.state.working_mode
                 await executor.reply(
-                    f'Mode automatically changed to {working_mode.value} ({working_mode.name})'
+                    MODE_AUTO_CHANGE.format(value=working_mode.value, name=working_mode.name)
                 )
                 return True
         return False
