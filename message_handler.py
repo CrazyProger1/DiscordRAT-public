@@ -47,6 +47,18 @@ class MessageHandler:
 
         return command, kwargs
 
+    @staticmethod
+    async def change_mode(command: str, executor: Executor) -> bool:
+        for mode_key, commands in COMMANDS.items():
+            if command in commands:
+                executor.state.working_mode = WorkingModes(mode_key)
+                working_mode = executor.state.working_mode
+                await executor.reply(
+                    f'Mode automatically changed to {working_mode.value} ({working_mode.name})'
+                )
+                return True
+        return False
+
     async def handle_command(self, raw_command: str, executor: Executor):
         working_mode = executor.state.working_mode
 
@@ -55,12 +67,12 @@ class MessageHandler:
                 command, args = self.parse_command_with_args(
                     command_with_args=raw_command,
                 )
-                if command not in FILESYSTEM_MODE_COMMANDS and command in BASIC_MODE_COMMANDS:
-                    executor.state.working_mode = WorkingModes.basic
-                    await executor.reply(
-                        f'Mode automatically changed to {WorkingModes.basic.value} ({WorkingModes.basic.name})'
-                    )
-                    return await self.handle_command(raw_command=raw_command, executor=executor)
+                if command not in COMMANDS.get(working_mode.value):
+                    if await self.change_mode(command=command, executor=executor):
+                        return await self.handle_command(
+                            raw_command=raw_command,
+                            executor=executor
+                        )
 
                 await executor.execute(
                     *args,
@@ -71,12 +83,12 @@ class MessageHandler:
                     command_with_kwargs=raw_command,
                 )
 
-                if command not in BASIC_MODE_COMMANDS and command in FILESYSTEM_MODE_COMMANDS:
-                    executor.state.working_mode = WorkingModes.filesystem
-                    await executor.reply(
-                        f'Mode automatically changed to {WorkingModes.filesystem.value} ({WorkingModes.filesystem.name})'
-                    )
-                    return await self.handle_command(raw_command=raw_command, executor=executor)
+                if command not in COMMANDS.get(working_mode.value):
+                    if await self.change_mode(command=command, executor=executor):
+                        return await self.handle_command(
+                            raw_command=raw_command,
+                            executor=executor
+                        )
 
                 await executor.execute(
                     command=command,

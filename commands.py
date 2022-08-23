@@ -13,3 +13,20 @@ FILESYSTEM_MODE_COMMANDS = (
     'ls',
     'dir'
 )
+
+COMMANDS = {
+    0: [
+        'help',
+        'exec',
+        'execo',
+        'start',
+        'shutdown',
+        'chmd',
+        'exit'
+    ],
+    1: [
+        'help',
+        'ls',
+        'dir'
+    ]
+}
