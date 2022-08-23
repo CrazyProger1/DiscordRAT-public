@@ -3,6 +3,7 @@ import command_handlers
 
 from state import State
 from config import Config
+from text import *
 
 
 class Executor:
@@ -10,6 +11,9 @@ class Executor:
         self.user = user
         self.state = State()
         self.config = config
+
+    async def reply_error(self, err: str, msg: str):
+        await self.user.send(err + msg)
 
     async def reply(self, text: str):
         await self.user.send(text)
@@ -23,7 +27,21 @@ class Executor:
                 **kwargs
             )
             if not output:
-                raise
+                await self.reply_error(ERR_OUTPUT, 'output is empty')
+                return
+
             await self.reply(output)
+
         except AttributeError:
-            await self.reply(f'That command does not exists "{command}"')
+            await self.reply_error(
+                ERR_COMMAND, COMMAND_DOES_NOT_EXISTS.format(command=command)
+            )
+        except TypeError as e:
+            await self.reply_error(
+                ERR_ARG, str(e)
+            )
+
+        except Exception as e:
+            await self.reply_error(
+                ERR_UNIDENTIFIED, str(e)
+            )
