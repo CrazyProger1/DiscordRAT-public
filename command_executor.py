@@ -16,6 +16,13 @@ class Executor:
         await self.user.send(err + msg)
 
     async def reply(self, text: str):
+        if len(text) > 2000:
+            while text:
+                length = len(text)
+                shorted_text = text[0:2000 if length > 2000 else -1]
+                await self.user.send(shorted_text)
+                text = text[2000::]
+            return
         await self.user.send(text)
 
     async def execute(self, command: str, **kwargs):

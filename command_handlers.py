@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 from config import Config
 from state import State, WorkingModes
@@ -29,3 +30,8 @@ def chmode_hndl(config: Config, state: State, mode: str) -> str:
 
 def exit_hndl(config: Config, state: State):
     exit(0)
+
+
+def execo_hndl(config: Config, state: State, cmd: str) -> str:
+    result = subprocess.run('chcp 437 && ' + cmd, stdout=subprocess.PIPE, shell=True)
+    return result.stdout.decode('utf-8')
