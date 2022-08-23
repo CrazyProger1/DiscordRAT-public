@@ -2,7 +2,9 @@ from serializable import SerializableObject
 
 
 class Config(SerializableObject):
-    def __init__(self):
-        super(Config, self).__init__(self)
+    __filepath__ = 'config.cnf'
 
-        self.token = None
+    def __init__(self):
+        super(Config, self).__init__()
+
+        self.token: str | None = None
