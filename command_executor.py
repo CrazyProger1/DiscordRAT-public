@@ -1,7 +1,7 @@
 import discord
 import command_handlers
 
-from state import State
+from state import State, WorkingModes
 from config import Config
 from text import *
 
@@ -25,10 +25,11 @@ class Executor:
             return
         await self.user.send(text)
 
-    async def execute(self, command: str, **kwargs):
+    async def execute(self, *args, command: str, **kwargs):
         try:
             handler = getattr(command_handlers, command + '_hndl')
             output = handler(
+                *args,
                 state=self.state,
                 config=self.config,
                 **kwargs

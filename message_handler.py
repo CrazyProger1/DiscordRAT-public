@@ -3,6 +3,8 @@ import re
 
 from config import Config
 from command_executor import Executor
+from state import WorkingModes
+from commands import *
 
 
 class MessageHandler:
@@ -15,18 +17,28 @@ class MessageHandler:
         return message.content.startswith('$')
 
     @staticmethod
-    def parse_command(command_with_args: str) -> tuple[str, dict]:
+    def parse_command_with_args(command_with_args: str) -> tuple[str, tuple]:
+
+        split_command = re.split(r'\s+', command_with_args)
+        args = []
+        if len(split_command) > 1:
+            args = split_command[1::]
+
+        return split_command[0].strip()[1::], tuple(map(str.strip, args))
+
+    @staticmethod
+    def parse_command_with_kwargs(command_with_kwargs: str) -> tuple[str, dict]:
         command = ''
         kwargs = {}
 
-        result = re.match(r'\$[\w]+', command_with_args)
+        result = re.match(r'\$[\w]+', command_with_kwargs)
         if result:
             command = result.group()[1::]
 
-        arguments = re.findall(r'\s*[\w]+\s*=\s*[\w]+\s*', command_with_args[len(command) + 1::])
+        arguments = re.findall(r'\s*[\w]+\s*=\s*[\w]+\s*', command_with_kwargs[len(command) + 1::])
         arguments.extend(
             map(lambda e: e.replace("'", ''),
-                re.findall(r'\s*[\w]+\s*=\s*\'[\S\s]+\'\s*', command_with_args[len(command) + 1::]))
+                re.findall(r'\s*[\w]+\s*=\s*\'[\S\s]+\'\s*', command_with_kwargs[len(command) + 1::]))
         )
 
         for arg_string in arguments:
@@ -35,14 +47,41 @@ class MessageHandler:
 
         return command, kwargs
 
-    async def handle_command(self, command_with_args: str, executor: Executor):
-        command, kwargs = self.parse_command(
-            command_with_args=command_with_args
-        )
-        await executor.execute(
-            command=command,
-            **kwargs
-        )
+    async def handle_command(self, raw_command: str, executor: Executor):
+        working_mode = executor.state.working_mode
+
+        match working_mode:
+            case WorkingModes.filesystem:
+                command, args = self.parse_command_with_args(
+                    command_with_args=raw_command,
+                )
+                if command not in FILESYSTEM_MODE_COMMANDS and command in BASIC_MODE_COMMANDS:
+                    executor.state.working_mode = WorkingModes.basic
+                    await executor.reply(
+                        f'Mode automatically changed to {WorkingModes.basic.value} ({WorkingModes.basic.name})'
+                    )
+                    return await self.handle_command(raw_command=raw_command, executor=executor)
+
+                await executor.execute(
+                    *args,
+                    command=command
+                )
+            case WorkingModes.basic:
+                command, kwargs = self.parse_command_with_kwargs(
+                    command_with_kwargs=raw_command,
+                )
+
+                if command not in BASIC_MODE_COMMANDS and command in FILESYSTEM_MODE_COMMANDS:
+                    executor.state.working_mode = WorkingModes.filesystem
+                    await executor.reply(
+                        f'Mode automatically changed to {WorkingModes.filesystem.value} ({WorkingModes.filesystem.name})'
+                    )
+                    return await self.handle_command(raw_command=raw_command, executor=executor)
+
+                await executor.execute(
+                    command=command,
+                    **kwargs
+                )
 
     def get_executor(self, message: discord.Message) -> Executor:
         executor = self.command_executors.get(message.author)
@@ -64,6 +103,6 @@ class MessageHandler:
 
         if self.is_command(message):
             await self.handle_command(
-                command_with_args=message.content,
+                raw_command=message.content,
                 executor=executor
             )
