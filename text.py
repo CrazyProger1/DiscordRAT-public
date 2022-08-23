@@ -6,9 +6,11 @@ Available Commands:
 $help - show this message
 $exec cmd - execute cmd command (cmd - Windows CMD command)
 $startapp app - start application (app - full path)
-$shutdown [time] - shutdown (time - time before shutdown in secs)'''
-
+$shutdown [time] - shutdown (time - time before shutdown in secs)
+$chmode mode - change working mode (modes: 0 - basic, 1 - filesystem)
+$exit - close session'''
 EXECUTED = 'Command executed'
+APPLICATION_STARTED = 'Application started'
 
 ERR_COMMAND = 'COMMAND ERROR: '
 ERR_ARG = 'ARGUMENT ERROR: '
