@@ -27,6 +27,7 @@ COMMANDS = {
     1: [
         'help',
         'ls',
-        'dir'
+        'dir',
+        'cd'
     ]
 }

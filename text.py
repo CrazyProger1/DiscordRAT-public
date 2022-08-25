@@ -32,6 +32,8 @@ DiscordRAT V0.1 by crazyproger1
 Available Commands:
 $rmde - reset mode to 0 (basic)
 $dir / $ls [path] - display list of the folder content (path - path to folder)
+$cd path - change working directory (path - path to folder)
+$cwd - get current working directory
 
 Examples:
 $rmde
@@ -44,6 +46,7 @@ EXECUTED = 'Command executed ({status})'
 APPLICATION_STARTED = 'Application started'
 MODE_CHANGED = 'Mode changed'
 MODE_AUTO_CHANGE = 'Mode automatically changed to {value} ({name})'
+DIR_CHANGED = 'Directory changed ({cwd})'
 
 ERR_COMMAND = 'COMMAND ERROR: '
 ERR_ARG = 'ARGUMENT ERROR: '

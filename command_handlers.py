@@ -31,7 +31,7 @@ def exit_hndl(**kwargs):
     exit(0)
 
 
-def execo_hndl(config: Config, state: State, cmd: str) -> str:
+def execo_hndl(cmd: str, **kwargs) -> str:
     result = subprocess.run(
         'chcp 437 && ' + cmd,
         stdout=subprocess.PIPE,
@@ -44,12 +44,12 @@ def ls_hndl(*args, config: Config, state: State) -> str:
     folder = args[0] if len(args) > 0 else None
 
     if not folder:
-        path = state.working_dir
+        path = os.getcwd()
     else:
         path = folder
 
     if not os.path.exists(path):
-        path = os.path.join(state.working_dir, folder)
+        path = os.path.join(os.getcwd(), folder)
 
     return f'{path} \n\n' + '\n'.join(os.listdir(path))
 
@@ -98,3 +98,8 @@ def susp_hndl(name: str = None, pid: str = None, **kwargs):
         return SUSPENDED
     else:
         raise CommandExecutionError(PROC_NOT_FOUND)
+
+
+def cd_hndl(path: str, **kwargs):
+    os.chdir(path)
+    return DIR_CHANGED.format(cwd=os.getcwd())

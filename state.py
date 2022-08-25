@@ -10,4 +10,3 @@ class WorkingModes(enum.Enum):
 
 class State:
     working_mode = WorkingModes.basic
-    working_dir = os.path.split(sys.argv[0])[0]
