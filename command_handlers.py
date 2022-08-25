@@ -114,14 +114,14 @@ def cd_hndl(path: str, **kwargs):
 
 
 def cp_hndl(src: str, dest: str, **kwargs):
-    check_existence(src=src, dest=dest)
+    check_src_and_dest_existence(src=src, dest=dest)
 
     shutil.copy(src, dest)
     return COPIED
 
 
 def mv_hndl(src: str, dest: str, **kwargs):
-    check_existence(src=src, dest=dest)
+    check_src_and_dest_existence(src=src, dest=dest)
 
     shutil.move(src, dest)
     return COPIED
@@ -133,3 +133,15 @@ def cwd_hndl(**kwargs):
 
 def bsdir_hndl(**kwargs):
     return os.path.split(sys.argv[0])[0]
+
+
+def del_hndl(path: str, **kwargs):
+    if os.path.exists(path):
+        if os.path.isfile(path):
+            os.remove(path)
+            return REMOVED
+        else:
+            shutil.rmtree(path)
+            return REMOVED
+    else:
+        raise CommandExecutionError(PATH_NOT_EXISTS)

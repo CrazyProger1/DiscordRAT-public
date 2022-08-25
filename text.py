@@ -2,6 +2,7 @@ COMMAND_DOES_NOT_EXISTS = 'that command does not exists "{command}"'
 PROC_NOT_FOUND = 'Process not found'
 SRC_NOT_EXISTS = 'Src does not exists'
 DEST_NOT_EXISTS = 'Dest does not exists'
+PATH_NOT_EXISTS = 'Path does not exists'
 HELP = '''
 DiscordRAT V0.1 by crazyproger1
 
@@ -36,6 +37,10 @@ $rmde - reset mode to 0 (basic)
 $dir / $ls [path] - display list of the folder content (path - path to folder)
 $cd path - change working directory (path - path to folder)
 $cwd - get current working directory
+$bsdir - get base working directory
+$cp src dest - copy file or directory (src - source path, dest - destination path)
+$mv src dest - move file or directory (src - source path, dest - destination path)
+$del path - delete file or directory 
 
 Examples:
 $rmde
@@ -51,6 +56,7 @@ MODE_AUTO_CHANGE = 'Mode automatically changed to {value} ({name})'
 DIR_CHANGED = 'Directory changed ({cwd})'
 COPIED = 'Copied'
 MOVED = 'Moved'
+REMOVED = 'Removed'
 
 ERR_COMMAND = 'COMMAND ERROR: '
 ERR_ARG = 'ARGUMENT ERROR: '

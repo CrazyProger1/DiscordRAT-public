@@ -24,6 +24,7 @@ COMMANDS = {
         'cp',
         'cwd',
         'bsdir',
-        'mv'
+        'mv',
+        'del'
     ]
 }

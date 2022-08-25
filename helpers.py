@@ -22,7 +22,7 @@ def remove_quotes(element: str):
         return element
 
 
-def check_existence(src: str, dest: str):
+def check_src_and_dest_existence(src: str, dest: str):
     if not os.path.exists(src):
         raise CommandExecutionError(SRC_NOT_EXISTS)
     if not os.path.exists(dest):
