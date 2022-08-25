@@ -5,6 +5,7 @@ from config import Config
 from state import State, WorkingModes
 from text import *
 from exceptions import *
+from helpers import *
 
 
 def help_hndl(config: Config, state: State) -> str:
@@ -74,14 +75,12 @@ def shutdown_hndl(time: str = None, **kwargs):
 
 
 def kill_hndl(pid: str = None, name: str = None, **kwargs):
-    if pid and pid.isdigit():
-        res = os.system(f'taskkill /F /PID {pid}')
-    else:
-        res = os.system(f'taskkill /F /IM {name}')
-
-    if not res:
+    proc = get_proc(name=name, pid=pid)
+    if proc:
+        proc.kill()
         return KILLED
-    raise CommandExecutionError(PROC_NOT_FOUND)
+    else:
+        raise CommandExecutionError(PROC_NOT_FOUND)
 
 
 def prlst_hndl(**kwargs):
@@ -90,3 +89,12 @@ def prlst_hndl(**kwargs):
         out += f'{proc.name()} <{proc.pid}>\n'
 
     return out
+
+
+def susp_hndl(name: str = None, pid: str = None, **kwargs):
+    proc = get_proc(name=name, pid=pid)
+    if proc:
+        proc.suspend()
+        return SUSPENDED
+    else:
+        raise CommandExecutionError(PROC_NOT_FOUND)

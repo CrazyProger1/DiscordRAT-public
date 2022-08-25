@@ -4,15 +4,21 @@ HELP = '''
 DiscordRAT V0.1 by crazyproger1
 
 Available Commands:
+==General==
 $help - show this message
-$exec cmd - execute cmd command (cmd - Windows CMD command)
-$execo cmd - the same as above but also return output
+$chmd mode - change working mode (modes: 0 - basic, 1 - filesystem)
 $start app - start application (app - full path)
 $shutdown [time] - shutdown (time - time before shutdown in secs)
-$chmd mode - change working mode (modes: 0 - basic, 1 - filesystem)
-$kill [pid] / [name] - kill process (pid - process id, name - process name)
-$prlst - get list of all processes
 $exit - close session
+
+==Command Line==
+$exec cmd - execute cmd command (cmd - Windows CMD command)
+$execo cmd - the same as above but also return output
+
+==Processes==
+$kill [pid] / [name] - kill process (pid - process id, name - process name)
+$susp [pid] / [name] - suspend process (pid - process id, name - process name)
+$prlst - get list of all processes
 
 Examples:
 $help 
@@ -33,7 +39,7 @@ $dir D:/
 $ls C:/
 '''
 KILLED = 'Process killed'
-
+SUSPENDED = 'Process suspended'
 EXECUTED = 'Command executed ({status})'
 APPLICATION_STARTED = 'Application started'
 MODE_CHANGED = 'Mode changed'
