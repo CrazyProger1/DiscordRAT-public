@@ -1,3 +1,4 @@
+import os.path
 import pickle
 from exceptions import *
 
@@ -29,9 +30,14 @@ class SerializableObject:
         if not issubclass(obj_type, SerializableObject):
             raise ValueError(f'the obj_type param must be a subclass of {SerializableObject}')
 
-        with open(obj_type.__filepath__, 'rb') as sf:
-            instance = pickle.load(sf)
-            if isinstance(instance, obj_type):
-                return instance
-            else:
-                raise TypeDiscrepancyError(f'loaded instance have wrong type, not {obj_type}')
+        if os.path.exists(obj_type.__filepath__):
+            with open(obj_type.__filepath__, 'rb') as sf:
+                instance = pickle.load(sf)
+                if isinstance(instance, obj_type):
+                    return instance
+                else:
+                    raise TypeDiscrepancyError(f'loaded instance have wrong type, not {obj_type}')
+        else:
+            instance = obj_type()
+            instance.dump()
+            return instance

@@ -7,4 +7,4 @@ class Config(SerializableObject):
     def __init__(self):
         super(Config, self).__init__()
 
-        self.token: str | None = None
+        self.token: str | None = '{TOKEN}'
