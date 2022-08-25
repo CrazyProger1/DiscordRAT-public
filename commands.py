@@ -1,19 +1,8 @@
-BASIC_MODE_COMMANDS = (
-    'help',
-    'exec',
-    'execo',
-    'start',
-    'shutdown',
-    'chmd',
-    'exit'
-)
-
-FILESYSTEM_MODE_COMMANDS = (
-    'help',
-    'ls',
-    'dir'
-)
-
+"""
+Different teams use different modes.
+Here is a description of which command belongs to which mode.
+Needed for modes autoswitching
+"""
 COMMANDS = {
     0: [
         'help',
@@ -34,6 +23,7 @@ COMMANDS = {
         'cd',
         'cp',
         'cwd',
-        'bsdir'
+        'bsdir',
+        'mv'
     ]
 }

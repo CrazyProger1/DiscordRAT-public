@@ -8,6 +8,11 @@ from exceptions import *
 
 
 class Executor:
+    """
+    Each user have own executor
+    Responsible for command executing and replying to user
+    """
+
     def __init__(self, user: discord.User, config: Config):
         self.user = user
         self.state = State()

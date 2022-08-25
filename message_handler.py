@@ -10,6 +10,10 @@ from helpers import *
 
 
 class MessageHandler:
+    """
+    Distinguishes random messages from commands, parses arguments, calls executors
+    """
+
     def __init__(self, config: Config):
         self.config = config
         self.command_executors: dict[discord.User, Executor] = {}

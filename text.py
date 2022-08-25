@@ -1,5 +1,7 @@
 COMMAND_DOES_NOT_EXISTS = 'that command does not exists "{command}"'
 PROC_NOT_FOUND = 'Process not found'
+SRC_NOT_EXISTS = 'Src does not exists'
+DEST_NOT_EXISTS = 'Dest does not exists'
 HELP = '''
 DiscordRAT V0.1 by crazyproger1
 

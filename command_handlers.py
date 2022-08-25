@@ -1,3 +1,8 @@
+"""
+Funcs that handle all user commands
+For command adding, it's enough to add handler func
+"""
+
 import os
 import subprocess
 import sys
@@ -109,11 +114,17 @@ def cd_hndl(path: str, **kwargs):
 
 
 def cp_hndl(src: str, dest: str, **kwargs):
-    if os.path.exists(src):
-        shutil.copy(src, dest)
-        return COPIED
-    else:
-        raise CommandExecutionError('Src not found')
+    check_existence(src=src, dest=dest)
+
+    shutil.copy(src, dest)
+    return COPIED
+
+
+def mv_hndl(src: str, dest: str, **kwargs):
+    check_existence(src=src, dest=dest)
+
+    shutil.move(src, dest)
+    return COPIED
 
 
 def cwd_hndl(**kwargs):
