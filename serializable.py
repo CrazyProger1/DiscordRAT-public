@@ -1,8 +1,5 @@
 import pickle
-
-
-class TypeDiscrepancyError(Exception):
-    pass
+from exceptions import *
 
 
 class SerializableObject:

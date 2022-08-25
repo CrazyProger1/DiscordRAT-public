@@ -1,9 +1,10 @@
 import os
 import subprocess
-
+import psutil
 from config import Config
 from state import State, WorkingModes
 from text import *
+from exceptions import *
 
 
 def help_hndl(config: Config, state: State) -> str:
@@ -11,8 +12,8 @@ def help_hndl(config: Config, state: State) -> str:
 
 
 def exec_hndl(cmd: str, **kwargs) -> str:
-    os.system(cmd)
-    return EXECUTED
+    res = os.system(cmd)
+    return EXECUTED.format(status=res)
 
 
 def start_hndl(app: str, **kwargs) -> str:
@@ -21,9 +22,6 @@ def start_hndl(app: str, **kwargs) -> str:
 
 
 def chmd_hndl(config: Config, state: State, mode: str) -> str:
-    if not mode.isdigit():
-        raise ValueError('mode must be an integer')
-
     state.working_mode = WorkingModes(int(mode))
     return MODE_CHANGED
 
@@ -71,7 +69,16 @@ def rmde_hndl(config: Config, state: State) -> str:
 def shutdown_hndl(time: str = None, **kwargs):
     if time and time.isdigit():
         os.system(f'shutdown /s /f /t {time}')
-        exit(0)
 
-    os.system(f'shutdown /s /p')
-    exit(0)
+    os.system(f'shutdown /p')
+
+
+def kill_hndl(pid: str = None, name: str = None, **kwargs):
+    if pid and pid.isdigit():
+        res = os.system(f'taskkill /F /PID {pid}')
+    else:
+        res = os.system(f'taskkill /F /IM {name}')
+
+    if not res:
+        return KILLED
+    raise CommandExecutionError(PROC_NOT_FOUND)

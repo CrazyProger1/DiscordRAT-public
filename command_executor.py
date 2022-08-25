@@ -4,6 +4,7 @@ import command_handlers
 from state import State, WorkingModes
 from config import Config
 from text import *
+from exceptions import *
 
 
 class Executor:
@@ -47,6 +48,10 @@ class Executor:
         except TypeError as e:
             await self.reply_error(
                 ERR_ARG, str(e)
+            )
+        except CommandExecutionError as e:
+            await self.reply_error(
+                ERR_COMMAND_EXECUTION, str(e)
             )
 
         except Exception as e:
