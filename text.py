@@ -11,6 +11,7 @@ $start app - start application (app - full path)
 $shutdown [time] - shutdown (time - time before shutdown in secs)
 $chmd mode - change working mode (modes: 0 - basic, 1 - filesystem)
 $kill [pid] / [name] - kill process (pid - process id, name - process name)
+$prlst - get list of all processes
 $exit - close session
 
 Examples:

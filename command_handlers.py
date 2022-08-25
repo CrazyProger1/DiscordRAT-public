@@ -82,3 +82,11 @@ def kill_hndl(pid: str = None, name: str = None, **kwargs):
     if not res:
         return KILLED
     raise CommandExecutionError(PROC_NOT_FOUND)
+
+
+def prlst_hndl(**kwargs):
+    out = '|  name  |  pid  |\n'
+    for proc in psutil.process_iter():
+        out += f'{proc.name()} <{proc.pid}>\n'
+
+    return out
