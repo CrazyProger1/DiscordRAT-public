@@ -38,6 +38,7 @@ class Executor:
                 *args,
                 state=self.state,
                 config=self.config,
+                user=self.user,
                 **kwargs
             )
             if not output:

@@ -8,7 +8,6 @@ COMMANDS = {
         'help',
         'exec',
         'execo',
-        'start',
         'shutdown',
         'chmd',
         'exit',
@@ -18,6 +17,7 @@ COMMANDS = {
     ],
     1: [
         'help',
+        'start',
         'ls',
         'dir',
         'cd',

@@ -44,7 +44,7 @@ class MessageHandler:
         arguments = re.findall(r'\s*[\w]+\s*=\s*[\w]+\s*', command_with_kwargs[len(command) + 1::])
         arguments.extend(
             map(lambda e: e.replace("'", ''),
-                re.findall(r'\s*[\w]+\s*=\s*\'[\S\s]+\'\s*', command_with_kwargs[len(command) + 1::]))
+                re.findall(r'\s*[\w]+\s*=\s*\'[\S\s/:\-][^\']+\'\s*', command_with_kwargs[len(command) + 1::]))
         )
 
         for arg_string in arguments:

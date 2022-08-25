@@ -4,6 +4,7 @@ import psutil
 import os
 from text import *
 from exceptions import *
+import urllib.request
 
 
 def get_proc(name: str = None, pid: str = None) -> psutil.Process:
@@ -27,3 +28,7 @@ def check_src_and_dest_existence(src: str, dest: str):
         raise CommandExecutionError(SRC_NOT_EXISTS)
     if not os.path.exists(dest):
         raise CommandExecutionError(DEST_NOT_EXISTS)
+
+
+def download_file(link: str, savepath: str):
+    urllib.request.urlretrieve(url=link, filename=savepath)

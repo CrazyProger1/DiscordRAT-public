@@ -16,7 +16,7 @@ from exceptions import *
 from helpers import *
 
 
-def help_hndl(config: Config, state: State) -> str:
+def help_hndl(state: State, **kwargs) -> str:
     return HELP if state.working_mode == WorkingModes.basic else FILESYSTEM_HELP
 
 
@@ -30,7 +30,7 @@ def start_hndl(app: str, **kwargs) -> str:
     return APPLICATION_STARTED
 
 
-def chmd_hndl(config: Config, state: State, mode: str) -> str:
+def chmd_hndl(state: State, mode: str, **kwargs) -> str:
     state.working_mode = WorkingModes(int(mode))
     return MODE_CHANGED
 
@@ -48,7 +48,7 @@ def execo_hndl(cmd: str, **kwargs) -> str:
     return result.stdout.decode('utf-8')
 
 
-def ls_hndl(*args, config: Config, state: State) -> str:
+def ls_hndl(*args, **kwargs) -> str:
     folder = args[0] if len(args) > 0 else None
 
     if not folder:
@@ -62,7 +62,7 @@ def ls_hndl(*args, config: Config, state: State) -> str:
     return f'{path} \n\n' + '\n'.join(os.listdir(path))
 
 
-def dir_hndl(*args, config: Config, state: State) -> str:
+def dir_hndl(*args, config: Config, state: State, **kwargs) -> str:
     return ls_hndl(
         *args,
         config=config,
@@ -70,7 +70,7 @@ def dir_hndl(*args, config: Config, state: State) -> str:
     )
 
 
-def rmde_hndl(config: Config, state: State) -> str:
+def rmde_hndl(state: State, **kwargs) -> str:
     state.working_mode = WorkingModes.basic
     return MODE_CHANGED
 
@@ -145,3 +145,11 @@ def del_hndl(path: str, **kwargs):
             return REMOVED
     else:
         raise CommandExecutionError(PATH_NOT_EXISTS)
+
+
+def download_hndl(link: str, savepath: str, **kwargs):
+    download_file(
+        link=link,
+        savepath=savepath
+    )
+    return DOWNLOADED
