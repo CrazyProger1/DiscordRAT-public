@@ -7,6 +7,7 @@ import os
 import subprocess
 import sys
 
+import discord
 import psutil
 import shutil
 from config import Config
@@ -153,3 +154,16 @@ def download_hndl(link: str, savepath: str, **kwargs):
         savepath=savepath
     )
     return DOWNLOADED
+
+
+def getf_hndl(path: str, user: discord.User, **kwargs):
+    if os.path.exists(path):
+        return 'file', path
+    raise CommandExecutionError(PATH_NOT_EXISTS)
+
+
+def cat_hndl(path: str, **kwargs):
+    if os.path.exists(path):
+        with open(path, 'r') as f:
+            return f.read()
+    raise CommandExecutionError(PATH_NOT_EXISTS)

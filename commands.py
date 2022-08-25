@@ -25,6 +25,8 @@ COMMANDS = {
         'cwd',
         'bsdir',
         'mv',
-        'del'
+        'del',
+        'getf',
+        'cat'
     ]
 }

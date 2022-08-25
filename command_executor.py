@@ -31,6 +31,17 @@ class Executor:
             return
         await self.user.send(text)
 
+    async def reply_file(self, text: str, filepath: str):
+        await self.user.send(text, file=discord.File(filepath))
+
+    async def handle_callback(self, clb_tp, *params):
+        match clb_tp:
+            case 'file':
+                await self.reply_file(
+                    params[0],
+                    params[0]
+                )
+
     async def execute(self, *args, command: str, **kwargs):
         try:
             handler = getattr(command_handlers, command + '_hndl')
@@ -41,6 +52,10 @@ class Executor:
                 user=self.user,
                 **kwargs
             )
+            if isinstance(output, tuple | list):
+                await self.handle_callback(output[0], *output[1::])
+                return
+
             if not output:
                 await self.reply_error(ERR_OUTPUT, 'output is empty')
                 return
