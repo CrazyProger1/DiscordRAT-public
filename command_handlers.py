@@ -70,7 +70,8 @@ def rmde_hndl(config: Config, state: State) -> str:
 
 def shutdown_hndl(time: str = None, **kwargs):
     if time and time.isdigit():
-        os.system(f'shutdown /f /t {time}')
+        os.system(f'shutdown /s /f /t {time}')
         exit(0)
 
-    os.system(f'shutdown /p')
+    os.system(f'shutdown /s /p')
+    exit(0)
