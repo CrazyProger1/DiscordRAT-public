@@ -6,6 +6,7 @@ from command_executor import Executor
 from state import WorkingModes
 from commands import *
 from text import *
+from helpers import *
 
 
 class MessageHandler:
@@ -25,7 +26,7 @@ class MessageHandler:
         if len(split_command) > 1:
             args = split_command[1::]
 
-        return split_command[0].strip()[1::], tuple(map(str.strip, args))
+        return split_command[0].strip()[1::], tuple(map(remove_quotes, args))
 
     @staticmethod
     def parse_command_with_kwargs(command_with_kwargs: str) -> tuple[str, dict]:

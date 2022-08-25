@@ -22,12 +22,18 @@ COMMANDS = {
         'start',
         'shutdown',
         'chmd',
-        'exit'
+        'exit',
+        'prlst',
+        'kill',
+        'susp'
     ],
     1: [
         'help',
         'ls',
         'dir',
-        'cd'
+        'cd',
+        'cp',
+        'cwd',
+        'bsdir'
     ]
 }

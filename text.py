@@ -47,6 +47,8 @@ APPLICATION_STARTED = 'Application started'
 MODE_CHANGED = 'Mode changed'
 MODE_AUTO_CHANGE = 'Mode automatically changed to {value} ({name})'
 DIR_CHANGED = 'Directory changed ({cwd})'
+COPIED = 'Copied'
+MOVED = 'Moved'
 
 ERR_COMMAND = 'COMMAND ERROR: '
 ERR_ARG = 'ARGUMENT ERROR: '

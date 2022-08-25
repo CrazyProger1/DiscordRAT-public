@@ -1,6 +1,9 @@
 import os
 import subprocess
+import sys
+
 import psutil
+import shutil
 from config import Config
 from state import State, WorkingModes
 from text import *
@@ -103,3 +106,19 @@ def susp_hndl(name: str = None, pid: str = None, **kwargs):
 def cd_hndl(path: str, **kwargs):
     os.chdir(path)
     return DIR_CHANGED.format(cwd=os.getcwd())
+
+
+def cp_hndl(src: str, dest: str, **kwargs):
+    if os.path.exists(src):
+        shutil.copy(src, dest)
+        return COPIED
+    else:
+        raise CommandExecutionError('Src not found')
+
+
+def cwd_hndl(**kwargs):
+    return os.getcwd()
+
+
+def bsdir_hndl(**kwargs):
+    return os.path.split(sys.argv[0])[0]
