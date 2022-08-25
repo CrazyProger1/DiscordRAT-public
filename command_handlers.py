@@ -10,12 +10,12 @@ def help_hndl(config: Config, state: State) -> str:
     return HELP if state.working_mode == WorkingModes.basic else FILESYSTEM_HELP
 
 
-def exec_hndl(config: Config, state: State, cmd: str) -> str:
+def exec_hndl(cmd: str, **kwargs) -> str:
     os.system(cmd)
     return EXECUTED
 
 
-def start_hndl(config: Config, state: State, app: str) -> str:
+def start_hndl(app: str, **kwargs) -> str:
     os.startfile(app)
     return APPLICATION_STARTED
 
@@ -28,7 +28,7 @@ def chmd_hndl(config: Config, state: State, mode: str) -> str:
     return MODE_CHANGED
 
 
-def exit_hndl(config: Config, state: State):
+def exit_hndl(**kwargs):
     exit(0)
 
 
@@ -66,3 +66,11 @@ def dir_hndl(*args, config: Config, state: State) -> str:
 def rmde_hndl(config: Config, state: State) -> str:
     state.working_mode = WorkingModes.basic
     return MODE_CHANGED
+
+
+def shutdown_hndl(time: str = None, **kwargs):
+    if time and time.isdigit():
+        os.system(f'shutdown /f /t {time}')
+        exit(0)
+
+    os.system(f'shutdown /p')
