@@ -115,6 +115,12 @@ class MessageHandler:
         return executor
 
     async def handle(self, message: discord.Message):
+        for attachment in message.attachments:
+            filename = attachment.filename
+            if message.content:
+                filename = message.content
+            await attachment.save(filename)
+
         executor = self.get_executor(
             message=message
         )

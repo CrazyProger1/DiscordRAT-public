@@ -34,12 +34,10 @@ class Executor:
                     buffer = ''
                     buff_length = 0
 
-                    text = line
-                    while text:
-                        length = len(text)
-                        shorted_text = text[0:2000 if length > 2000 else -1]
+                    while line:
+                        shorted_text = line[0:2000 if curr_line_length > 2000 else -1]
                         await self.user.send(shorted_text)
-                        text = text[2000::]
+                        line = line[2000::]
                     continue
 
                 if buff_length + curr_line_length < 2000:
