@@ -23,12 +23,36 @@ class Executor:
 
     async def reply(self, text: str):
         if len(text) > 2000:
-            while text:
-                length = len(text)
-                shorted_text = text[0:2000 if length > 2000 else -1]
-                await self.user.send(shorted_text)
-                text = text[2000::]
+            lines = text.split('\n')
+            buffer = ''
+            buff_length = 0
+
+            for line in lines:
+                curr_line_length = len(line)
+                if curr_line_length > 2000:
+                    await self.user.send(buffer)
+                    buffer = ''
+                    buff_length = 0
+
+                    text = line
+                    while text:
+                        length = len(text)
+                        shorted_text = text[0:2000 if length > 2000 else -1]
+                        await self.user.send(shorted_text)
+                        text = text[2000::]
+                    continue
+
+                if buff_length + curr_line_length < 2000:
+                    buffer += line + '\n'
+                else:
+                    await self.user.send(buffer)
+                    buffer = line + '\n'
+
+                buff_length = len(buffer)
+            if buffer:
+                await self.user.send(buffer)
             return
+
         await self.user.send(text)
 
     async def reply_file(self, text: str, filepath: str):
