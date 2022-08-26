@@ -1,10 +1,11 @@
+ONLINE = 'Online {bot_name}'
 COMMAND_DOES_NOT_EXISTS = 'that command does not exists "{command}"'
 PROC_NOT_FOUND = 'Process not found'
 SRC_NOT_EXISTS = 'Src does not exists'
 DEST_NOT_EXISTS = 'Dest does not exists'
 PATH_NOT_EXISTS = 'Path does not exists'
 HELP = '''
-DiscordRAT V0.1 by crazyproger1
+DiscordRAT V0.1
 
 Available Commands:
 ==General==
@@ -30,7 +31,7 @@ $chmd mode = 1
 '''
 
 FILESYSTEM_HELP = '''
-DiscordRAT V0.1 by crazyproger1
+DiscordRAT V0.1
 
 Available Commands:
 $start app - start application (app - full path)

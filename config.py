@@ -8,3 +8,4 @@ class Config(SerializableObject):
         super(Config, self).__init__()
 
         self.token: str | None = '{TOKEN}'
+        self.bot_name = 'TestBot'
