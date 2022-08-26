@@ -13,7 +13,8 @@ COMMANDS = {
         'exit',
         'prlst',
         'kill',
-        'susp'
+        'susp',
+        'chtok'
     ],
     1: [
         'help',

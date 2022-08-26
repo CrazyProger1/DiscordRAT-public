@@ -156,7 +156,7 @@ def download_hndl(link: str, savepath: str, **kwargs):
     return DOWNLOADED
 
 
-def getf_hndl(path: str, user: discord.User, **kwargs):
+def getf_hndl(path: str, **kwargs):
     if os.path.exists(path):
         return 'file', path
     raise CommandExecutionError(PATH_NOT_EXISTS)
@@ -167,3 +167,9 @@ def cat_hndl(path: str, **kwargs):
         with open(path, 'r') as f:
             return f.read()
     raise CommandExecutionError(PATH_NOT_EXISTS)
+
+
+def chtok_hndl(token: str, config: Config, **kwargs):
+    config.token = token
+    config.dump()
+    return CHANGED
