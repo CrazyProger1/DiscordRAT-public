@@ -9,6 +9,7 @@ def main():
         config = Config()
         config.token = token
         config.dump()
+        print('[+] Written')
     except IndexError:
         print('Usage: write_config.py token')
 
