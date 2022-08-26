@@ -13,7 +13,7 @@ class App:
     intents.message_content = True
     intents.members = True
     client = discord.Client(intents=intents)
-    config = SerializableObject.load(Config)
+    config = SerializableObject.load(Config, dump_new=True)
     message_handler = MessageHandler(config)
 
     async def on_message(self, message: discord.Message):
@@ -27,7 +27,7 @@ class App:
     async def on_ready(self):
         for member in self.client.get_all_members():
             if member.name != self.client.user.name:
-                await member.send(ONLINE.format(bot_name=self.config.bot_name))
+                await member.send(ONLINE)
 
     def run(self):
         self.client.event(self.on_message)

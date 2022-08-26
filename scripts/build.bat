@@ -6,3 +6,4 @@ copy "config.cnf" "dist/config.cnf"
 
 rmdir build  /S /Q
 del main.spec
+echo "[+] Succesefully built, saved to 'dist'"

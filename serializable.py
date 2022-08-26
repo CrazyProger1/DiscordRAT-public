@@ -20,11 +20,12 @@ class SerializableObject:
             pickle.dump(self, sf)
 
     @staticmethod
-    def load(obj_type):
+    def load(obj_type, dump_new: bool = False):
         """
         Loads a saved class instance from a file
 
-        :param type[SerializableObject] obj_type:
+        :param dump_new:
+        :param type[SerializableObject] obj_type: serializable object, must be inherited of SerializableObject class
         :return obj_type:
         """
         if not issubclass(obj_type, SerializableObject):
@@ -39,5 +40,6 @@ class SerializableObject:
                     raise TypeDiscrepancyError(f'loaded instance have wrong type, not {obj_type}')
         else:
             instance = obj_type()
-            instance.dump()
+            if dump_new:
+                instance.dump()
             return instance

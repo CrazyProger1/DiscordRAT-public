@@ -1,4 +1,4 @@
-ONLINE = 'Online {bot_name}'
+ONLINE = 'Target online'
 COMMAND_DOES_NOT_EXISTS = 'that command does not exists "{command}"'
 PROC_NOT_FOUND = 'Process not found'
 SRC_NOT_EXISTS = 'Src does not exists'
