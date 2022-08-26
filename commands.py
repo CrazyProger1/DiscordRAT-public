@@ -1,5 +1,5 @@
 """
-Different teams use different modes.
+Different commands use different modes.
 Here is a description of which command belongs to which mode.
 Needed for modes autoswitching
 """
